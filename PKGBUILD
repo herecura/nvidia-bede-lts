@@ -4,11 +4,11 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede-lts
-pkgver=375.20
+pkgver=375.26
 _extramodules=4.4-BEDE-LTS-external
-_current_linux_version=4.4.38
+_current_linux_version=4.4.39
 _next_linux_version=4.5
-pkgrel=7
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux-bede-lts"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -28,8 +28,8 @@ source_i686=("http://download.nvidia.com/XFree86/Linux-x86/$pkgver/NVIDIA-Linux-
 source_x86_64=("http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run")
 #source_i686=("NVIDIA-Linux-x86-$pkgver.run::https://developer.nvidia.com/linux32bit")
 #source_x86_64=("NVIDIA-Linux-x86_64-$pkgver-no-compat32.run::https://developer.nvidia.com/linux64bit")
-sha256sums_i686=('cc79d3ac2b688009ed2e47a1cf27557aea5dd745b3b6e9b83945c359ddab4335')
-sha256sums_x86_64=('ef2e71b6eef6ce2ee2556c1449d129380f0312b5a6a51bd8483fd60f8df0b9bf')
+sha256sums_i686=('7c79cfaae5512f34ff14cf0fe76632c7c720600d4bbae71d90ff73f1674e617b')
+sha256sums_x86_64=('9cc4abadd47165a17a4f9475e90e91d1b63de63fcc28c4e2e30e10dee845b4b2')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"

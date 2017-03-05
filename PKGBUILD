@@ -5,10 +5,10 @@
 _pkgname=nvidia
 pkgname=$_pkgname-bede-lts
 pkgver=378.13
-_extramodules=4.4-BEDE-LTS-external
-_current_linux_version=4.4.52
-_next_linux_version=4.5
-pkgrel=14
+_extramodules=4.9-BEDE-LTS-external
+_current_linux_version=4.9.13
+_next_linux_version=4.10
+pkgrel=15
 pkgdesc="NVIDIA drivers for linux-bede-lts"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -47,7 +47,6 @@ build() {
     _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
     cd $_folder/kernel
     make SYSSRC=/usr/lib/modules/$_kernver/build module
-
 }
 
 package() {

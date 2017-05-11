@@ -4,7 +4,7 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede-lts
-pkgver=378.13
+pkgver=381.22
 _extramodules=4.9-BEDE-LTS-external
 _current_linux_version=4.9.27
 _next_linux_version=4.10
@@ -25,11 +25,11 @@ options=(!strip)
 
 source_i686=("http://download.nvidia.com/XFree86/Linux-x86/$pkgver/NVIDIA-Linux-x86-$pkgver.run")
 source_x86_64=("http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run")
-sha512sums_i686=('b96d2558a1003a3c66cade3a1e16abd34d855c0e27cdebacdc0495e0ba3cd5c68bb84cc5f81bff1b9ddce36ac52e0dc125c56d868b77d7c8e2f606d559b13b4a')
-sha512sums_x86_64=('b0ee6f1859d21e8f619e89fb75f2ace64bad5ba4852bc1b8a6148144fb2a917735a8272c0e528a8040b4d0db31a8203c6f698ea83c5cef41d8818d621d55eee3')
+sha512sums_i686=('15723bfa25b0f39224ad5098c784a292abe4bf1daafaeb2f1df910bbab466e666b848b12e50b0bdd45f83e2d81957425a63501550b3dc5eb8fe3e576a8a10d22')
+sha512sums_x86_64=('c40214725d8b02dab2596fb5b8d22033fbd15b29ccb8d0c789a049e3251b301c5001b778b29958f8d424625b42d4dedf3f70a47493ea8c67c63060c0b54dc7b5')
 
-[[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
-[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
+[[ "$CARCH" == "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
+[[ "$CARCH" == "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 #_folder=${_pkg//-no-compat32/}
 _folder=${_pkg}
 

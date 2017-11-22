@@ -5,10 +5,10 @@
 _pkgname=nvidia
 pkgname=$_pkgname-bede-lts
 pkgver=387.22
-_extramodules=4.9-BEDE-LTS-external
-_current_linux_version=4.9.64
-_next_linux_version=4.10
-pkgrel=6
+_extramodules=4.14-BEDE-LTS-external
+_current_linux_version=4.14.1
+_next_linux_version=4.15
+pkgrel=7
 pkgdesc="NVIDIA drivers for linux-bede-lts"
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -24,8 +24,10 @@ provides=('nvidia')
 license=('custom')
 options=(!strip)
 
-source=("http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run")
-sha512sums=('f304f5b6d4c7e0ba5f19cf9f84ecab1c911e17d25193b527bf9c45200dda942011cb7632555e5351ed8fc212dcb59ea3d791b971073a8b09cb96af790e0c30ff')
+source=("http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run"
+    'v4.13-rc1.patch')
+sha512sums=('f304f5b6d4c7e0ba5f19cf9f84ecab1c911e17d25193b527bf9c45200dda942011cb7632555e5351ed8fc212dcb59ea3d791b971073a8b09cb96af790e0c30ff'
+            'f8767d1adb244655c5946935848c2d5a88bf6f2aa86352f7aa5f1457f1386c5650417bf1373e8d6fd80bfdea63964f9013e1484434418d7d51defbb53413ec49')
 
 [[ "$CARCH" == "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 #_folder=${_pkg//-no-compat32/}
@@ -36,6 +38,10 @@ prepare() {
     sh $_pkg.run --extract-only
     cd $_folder
     # patch if needed
+    (
+        cd kernel
+        patch -p0 -i "$srcdir/v4.13-rc1.patch"
+    )
 }
 
 build() {

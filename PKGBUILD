@@ -8,7 +8,7 @@ pkgver=396.51
 _extramodules=4.14-BEDE-LTS-external
 _current_linux_version=4.14.65
 _next_linux_version=4.15
-pkgrel=4
+pkgrel=5
 pkgdesc="NVIDIA drivers for linux-bede-lts"
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -67,7 +67,6 @@ package() {
     echo "blacklist nouveau" >> "$pkgdir/usr/lib/modprobe.d/$pkgname.conf"
     echo "blacklist nvidiafb" >> "$pkgdir/usr/lib/modprobe.d/$pkgname.conf"
 
-    # gzip all modules
-    find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
+    find "${pkgdir}" -name '*.ko' -exec xz {} +
 }
 

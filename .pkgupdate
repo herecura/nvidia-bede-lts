@@ -1,0 +1,1 @@
+update_pkgver=$(curl -m 10 -s https://www.archlinux.org/packages/extra/x86_64/nvidia/ | grep "<h2.*nvidia" | sed -e 's/.* \([0-9\.]\+\)-.*/\1/g')

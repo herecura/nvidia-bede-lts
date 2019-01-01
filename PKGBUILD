@@ -5,10 +5,10 @@
 _pkgname=nvidia
 pkgname=$_pkgname-bede-lts
 pkgver=415.25
-_extramodules=4.14-BEDE-LTS-external
-_current_linux_version=4.14.91
-_next_linux_version=4.15
-pkgrel=3
+_extramodules=4.19-BEDE-LTS-external
+_current_linux_version=4.19.13
+_next_linux_version=4.20
+pkgrel=4
 pkgdesc="NVIDIA drivers for linux-bede-lts"
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -60,7 +60,7 @@ package() {
 
     if [[ "$CARCH" = "x86_64" ]]; then
         install -D -m644 "${srcdir}/${_folder}/kernel/nvidia-uvm.ko" \
-            "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
+            "${pkgdir}/usr/lib/modules/${_extramodules}/$_pkgname/nvidia-uvm.ko"
     fi
 
     install -dm755 "$pkgdir/usr/lib/modprobe.d"

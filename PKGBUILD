@@ -4,11 +4,11 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede-lts
-pkgver=418.56
+pkgver=418.74
 _extramodules=4.19-BEDE-LTS-external
-_current_linux_version=4.19.40
+_current_linux_version=4.19.41
 _next_linux_version=4.20
-pkgrel=11
+pkgrel=2
 pkgdesc="NVIDIA drivers for linux-bede-lts"
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -25,7 +25,7 @@ license=('custom')
 options=(!strip)
 
 source=("http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run")
-sha512sums=('d2d07d6f946c19b1c312d34ccb6631e9782aca374cd452e5edb471c568e2a8b584475d3e1476d76d79d84c5d6e300b39b14a1484945b353f3e7b68baa7960efd')
+sha512sums=('0df1a3531ab58cd3a54e67e55584f64bf38dbac920173e654ce26005145ec6c4983ffd0c516a34df890f56ebfe71d83eef4bc99b3019785ac06442bb406b86f9')
 
 [[ "$CARCH" == "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 #_folder=${_pkg//-no-compat32/}

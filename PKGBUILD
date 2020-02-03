@@ -4,7 +4,7 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede-lts
-pkgver=440.44
+pkgver=440.48.02
 _extramodules=5.4-BEDE-LTS-external
 _current_linux_version=5.4.17
 _next_linux_version=5.5
@@ -12,66 +12,34 @@ pkgrel=16
 pkgdesc="NVIDIA drivers for linux-bede-lts"
 arch=('x86_64')
 url="http://www.nvidia.com/"
+source=()
 makedepends=(
     "linux-bede-lts>=$_current_linux_version"
     "linux-bede-lts-headers>=$_current_linux_version"
     "linux-bede-lts<$_next_linux_version"
     "linux-bede-lts-headers<$_next_linux_version"
-    "nvidia-utils=$pkgver"
-    "libglvnd"
+    "nvidia-dkms=$pkgver"
 )
 provides=('nvidia')
 license=('custom')
 options=(!strip)
-
-source=(
-    "http://us.download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run"
-    "linux-5.4-prime.patch"
-)
-sha512sums=('b183e8ac7d31317a5fe8e9395c58858f6c7828bad1879bdf67f9cd682099da0c2c1b5dbc0e35a3b39da80b383b81672b4fde0d53affc331f94bbccc0d6c2568c'
-            '01abed11589dc632a4d91a0d7a826658f34b0c2c4d82ac2e695cf787dde9d9b56a1737885e74073daccbdb470701864ceb865ebcb099c60622725deebe2d486f')
-
-[[ "$CARCH" == "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
-#_folder=${_pkg//-no-compat32/}
-_folder=${_pkg}
-
-prepare() {
-    [ -d "$_folder" ] && rm -rf "$_folder"
-    sh $_pkg.run --extract-only
-    cd $_folder
-    # patch if needed
-    patch -p1 -i "$srcdir/linux-5.4-prime.patch"
-}
-
-build() {
-    cd $_folder/kernel
-    make SYSSRC=/usr/src/linux-bede-lts
-}
 
 package() {
     depends=(
         "linux-bede-lts>=$_current_linux_version"
         "linux-bede-lts<$_next_linux_version"
         "nvidia-utils=$pkgver"
+        "libglvnd"
     )
 
-    local extradir="/usr/lib/modules/$(</usr/src/linux-bede-lts/version)/extramodules"
-    install -Dm644 "$srcdir/$_folder/kernel/nvidia.ko" \
-        "${pkgdir}${extradir}/$_pkgname/nvidia.ko"
-    install -Dm644 "$srcdir/$_folder/kernel/nvidia-modeset.ko" \
-        "${pkgdir}${extradir}/$_pkgname/nvidia-modeset.ko"
-    install -Dm644 "$srcdir/$_folder/kernel/nvidia-drm.ko" \
-        "${pkgdir}${extradir}/$_pkgname/nvidia-drm.ko"
-
-    if [[ "$CARCH" = "x86_64" ]]; then
-        install -D -m644 "${srcdir}/${_folder}/kernel/nvidia-uvm.ko" \
-            "${pkgdir}${extradir}/$_pkgname/nvidia-uvm.ko"
-    fi
+    local kernver=$(</usr/src/linux-bede-lts/version)
+    local extradir="/usr/lib/modules/$kernver/extramodules"
+    install -dm755 "${pkgdir}${extradir}/$_pkgname"
+    cp -a "/var/lib/dkms/$_pkgname/kernel-$kernver-x86_64/module"/* \
+        "${pkgdir}${extradir}/$_pkgname/"
 
     install -dm755 "$pkgdir/usr/lib/modprobe.d"
     echo "blacklist nouveau" >> "$pkgdir/usr/lib/modprobe.d/$pkgname.conf"
     echo "blacklist nvidiafb" >> "$pkgdir/usr/lib/modprobe.d/$pkgname.conf"
-
-    find "${pkgdir}" -name '*.ko' -exec xz {} +
 }
 

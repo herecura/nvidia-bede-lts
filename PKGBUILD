@@ -6,9 +6,9 @@ _pkgname=nvidia
 pkgname=$_pkgname-bede-lts
 pkgver=440.64
 _extramodules=5.4-BEDE-LTS-external
-_current_linux_version=5.4.24
+_current_linux_version=5.4.25
 _next_linux_version=5.5
-pkgrel=2
+pkgrel=3
 pkgdesc="NVIDIA drivers for linux-bede-lts"
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -19,6 +19,7 @@ makedepends=(
     "linux-bede-lts<$_next_linux_version"
     "linux-bede-lts-headers<$_next_linux_version"
     "nvidia-dkms=$pkgver"
+    "nvidia-utils=$pkgver"
 )
 provides=('nvidia')
 license=('custom')
@@ -42,6 +43,7 @@ package() {
     echo "blacklist nouveau" >> "$pkgdir/usr/lib/modprobe.d/$pkgname.conf"
     echo "blacklist nvidiafb" >> "$pkgdir/usr/lib/modprobe.d/$pkgname.conf"
 }
+
 
 
 
